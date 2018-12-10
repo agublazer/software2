@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    Saldo actual: {{user_data.saldo}}
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div padding>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="expend" (click)="setType(false)">
+          Gasto
+        </ion-segment-button>
+        <ion-segment-button value="income" (click)="setType(true)">
+          Ingreso
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    
+    <div [ngSwitch]="pet">
+        <form *ngSwitchCase="'income'" [formGroup]="incomeForm" (ngSubmit)="addIncome()">
+            <!--<ion-item>
+              <ion-label>Concepto</ion-label>
+              <ion-select [formControl]="incomeForm.controls['concept']" interface="action-sheet" placeholder="Comida" stacked>
+                <ion-option value="Comida">Comida</ion-option>
+                <ion-option value="Servicios y hogar">Servicios y hogar</ion-option>
+                <ion-option value="Entretenimiento">Entretenimiento</ion-option>
+                <ion-option value="Transporte" selectedText="Transporte">Transporte</ion-option>
+                <ion-option value="Salud">Salud</ion-option>
+                <ion-option value="Educación">Educación</ion-option>
+                <ion-option value="Generales">Generales</ion-option>
+              </ion-select>
+            </ion-item>-->
+            <ion-item>
+              <ion-label>Monto</ion-label>
+              <ion-input [formControl]="incomeForm.controls['amount']" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [formControl]="incomeForm.controls['description']" type="text" placeholder="Descripción"></ion-input>
+            </ion-item>
+            <ion-item> 
+              <ion-label>Fecha</ion-label>
+              <ion-datetime [formControl]="incomeForm.controls['date']" displayFormat="DD/MM/YYYY" placeholder="01/01/2001"></ion-datetime>
+            </ion-item>
+            <ion-list [formControl]="incomeForm.controls['personal']" radio-group>
+              <ion-item>
+                <ion-label>Personal</ion-label>
+                <ion-radio value="1"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Grupo</ion-label>
+                <ion-radio value="0"></ion-radio>
+              </ion-item>
+            </ion-list>
+            <div align="center">
+              <button ion-button type="submit" [disabled]="!incomeForm.valid">Guardar</button>
+            </div>
+            <div align="center">
+                <button ion-button type="submit" [disabled]="!incomeForm.valid">Recordar y guardar</button>
+              </div>
+          </form>
+
+      <form *ngSwitchCase="'expend'" [formGroup]="incomeForm" (ngSubmit)="addIncome()">
+        <ion-item>
+          <ion-label>Concepto</ion-label>
+          <ion-select [formControl]="incomeForm.controls['concept']" interface="action-sheet" placeholder="Comida" stacked>
+            <ion-option value=1>Comida</ion-option>
+            <ion-option value=2>Servicios y hogar</ion-option>
+            <ion-option value=3>Entretenimiento</ion-option>
+            <ion-option value=4 selectedText="Transporte">Transporte</ion-option>
+            <ion-option value=5>Salud</ion-option>
+            <ion-option value=6>Educación</ion-option>
+            <ion-option value=7>Generales</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-input [formControl]="incomeForm.controls['description']" type="text" placeholder="Descripción"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Monto</ion-label>
+            <ion-input [formControl]="incomeForm.controls['amount']" type="number" id="numero" oninput="if(this.value > 10000000) this.value = 10000000;if(this.value < 0) this.value*=-1;"></ion-input>
+          </ion-item>
+        <ion-item> 
+          <ion-label>Fecha</ion-label>
+          <ion-datetime [formControl]="incomeForm.controls['date']" displayFormat="DD/MM/YYYY" placeholder="01/01/2001"></ion-datetime>
+        </ion-item>
+        <ion-list [formControl]="incomeForm.controls['personal']" radio-group>
+          <ion-item>
+            <ion-label>Personal</ion-label>
+            <ion-radio value="1"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Grupo</ion-label>
+            <ion-radio value="0"></ion-radio>
+          </ion-item>
+        </ion-list>
+        <div align="center">
+          <button ion-button type="submit" [disabled]="!incomeForm.valid">Guardar</button>
+        </div>
+        <div align="center">
+            <button ion-button type="submit" [disabled]="!incomeForm.valid">Recordar y guardar</button>
+          </div>
+      </form>
+    </div>
+    
+  <div padding>
+    
+  </div>
+</ion-content>
